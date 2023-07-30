@@ -64,7 +64,9 @@ func cleanInterface(array map[string]interface{}) (any, bool) {
 					}
 				}
 			}
-			return cleaned, true
+			if len(cleaned) > 0 {
+				return cleaned, true
+			}
 		case "BOOL":
 			// check for TRUE/FALSE values
 			if trimmedInterfaceContains(falseString, element) {
@@ -132,8 +134,10 @@ func main() {
 			}
 		}
 	}
+	var output []any
+	output = append(output, cleaned)
 	// format cleaned map as json and output to STDOUT
-	b, err := json.MarshalIndent(cleaned, "", "  ")
+	b, err := json.MarshalIndent(output, "", "  ")
 	if err != nil {
 		fmt.Println(err)
 	}
