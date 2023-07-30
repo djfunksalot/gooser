@@ -17,7 +17,7 @@ var trueString = []string{"1", "t", "T", "TRUE", "true", "True"}
 
 // assert interface as a string, trim whitespaces then check for match in list
 // returns 'true' if value was found
-func trimmedInterfaceContains(list []string, i interface{}) bool {
+func trimmedInterfaceContains(list []string, i any) bool {
 	s := strings.Trim(i.(string), " ")
 	for _, a := range list {
 		if a == s {
@@ -29,7 +29,7 @@ func trimmedInterfaceContains(list []string, i interface{}) bool {
 
 // assert interface as appropriate type, then apply formatting rules
 // returns formatted value (string, float64, bool, map, list) and success (bool)
-func cleanInterface(array map[string]interface{}) (any, bool) {
+func cleanInterface(array map[string]any) (any, bool) {
 	for key, element := range array {
 		switch k := strings.Trim(key, " "); k {
 		case "S":
@@ -53,10 +53,10 @@ func cleanInterface(array map[string]interface{}) (any, bool) {
 			// entry, adding it to the new map if valid
 			cleaned := make(map[string]any)
 
-			se, _ := element.(map[string]interface{})
+			se, _ := element.(map[string]any)
 			for key, sub := range se {
 				if reflect.TypeOf(sub).Kind() == reflect.Map && len(key) > 0 {
-					if str, ok := sub.(map[string]interface{}); ok {
+					if str, ok := sub.(map[string]any); ok {
 						c, success := cleanInterface(str)
 						if success {
 							cleaned[key] = c
@@ -89,7 +89,7 @@ func cleanInterface(array map[string]interface{}) (any, bool) {
 				elAsAny := element.([]any)
 				for ele := range elAsAny {
 					if (reflect.TypeOf(elAsAny[ele]).Kind()) == reflect.Map {
-						jo := elAsAny[ele].(map[string]interface{})
+						jo := elAsAny[ele].(map[string]any)
 						c, success := cleanInterface(jo)
 						if success {
 							anyList = append(anyList, c)
@@ -126,7 +126,7 @@ func main() {
 	//iterate over entries in json file and format, if valid add to new map
 	for key, element := range result {
 		if reflect.TypeOf(element).Kind() == reflect.Map && len(key) > 0 {
-			if str, ok := element.(map[string]interface{}); ok {
+			if str, ok := element.(map[string]any); ok {
 				c, success := cleanInterface(str)
 				if success {
 					cleaned[key] = c
