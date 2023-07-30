@@ -1,5 +1,5 @@
 # gooser
-
+A JSON transformer written in go
 ## Execution
-
-- go buld main.go
+- go build -o main .
+- ./main
