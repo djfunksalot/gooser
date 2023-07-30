@@ -107,6 +107,7 @@ func cleanInterface(array map[string]interface{}) (any, bool) {
 
 // load a json file, apply data cleaning rules then output to STDOUT
 func main() {
+	start := time.Now()
 	// Open input json file
 	jsonFile, err := os.Open("input.json")
 	// if error opening file, print it
@@ -136,5 +137,6 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Print(string(b))
+	fmt.Print(string(b) + "\n")
+	fmt.Printf("duration: %v\n", time.Since(start))
 }
