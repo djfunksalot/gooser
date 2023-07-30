@@ -1,6 +1,6 @@
 # gooser
 A JSON transformer written in go
-## Running Locally
+## Running locally
 - git clone https://github.com/djfunksalot/gooser.git
 - cd gooser
 - go build -o main .
