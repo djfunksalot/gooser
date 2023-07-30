@@ -6,5 +6,5 @@ A JSON transformer written in go
 - go build -o main .
 - ./main
 ## Running on replit
-[https://replit.com/@djfunksalot/gooser](https://replit.com/@djfunksalot/gooser)
-click on "Run" button at the top of the page
+- navigate to [https://replit.com/@djfunksalot/gooser](https://replit.com/@djfunksalot/gooser)
+- click on "Run" button at the top of the page
